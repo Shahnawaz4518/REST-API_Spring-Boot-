@@ -1,4 +1,4 @@
-package com.cwdlimited.repository;
+package com.cwdlimited.LearningRESTAPIs.repository;
 
 import com.cwdlimited.LearningRESTAPIs.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
