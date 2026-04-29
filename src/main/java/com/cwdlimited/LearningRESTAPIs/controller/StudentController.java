@@ -4,10 +4,11 @@ import com.cwdlimited.LearningRESTAPIs.dto.StudentDto;
 import com.cwdlimited.LearningRESTAPIs.service.StudentService;
 
 import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @GetMapping("/students/{id}")
-    public StudentDto getStudentById() {
-        return new StudentDto(18L, "Virat", "virat.kohli@gmail.com");
+    public StudentDto getStudentById(@PathVariable Long id) {
+        return studentService.getStudentById(id);
     }
 }
