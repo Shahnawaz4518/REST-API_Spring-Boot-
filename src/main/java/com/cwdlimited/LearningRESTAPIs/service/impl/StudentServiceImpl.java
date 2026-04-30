@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,4 +63,27 @@ public class StudentServiceImpl implements StudentService {
        student = studentRepository.save(student);
        return modelMapper.map(student, StudentDto.class);
     }
+
+   @Override
+    public StudentDto updatePartialAStudent(Long id, Map<String, Object> updates) {
+
+       Student student = studentRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Student not found with id: " + id));
+
+       updates.forEach((field, value) -> {
+          switch (field) {
+              case "name":
+                student.setName((String) value);
+                break;
+              case "email":
+                student.setEmail((String) value);
+                break;
+              default:
+                throw new IllegalArgumentException("Field is not supported");
+        }
+    });
+
+       Student updatedStudent = studentRepository.save(student); // ✅ new variable
+      return modelMapper.map(updatedStudent, StudentDto.class);
+   }
 }
