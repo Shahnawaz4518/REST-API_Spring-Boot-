@@ -1,6 +1,7 @@
 
 package com.cwdlimited.LearningRESTAPIs.service.impl;
 
+import com.cwdlimited.LearningRESTAPIs.dto.AddStudentRequestDto;
 import com.cwdlimited.LearningRESTAPIs.dto.StudentDto;
 import com.cwdlimited.LearningRESTAPIs.entity.Student;
 import com.cwdlimited.LearningRESTAPIs.repository.StudentRepository;
@@ -33,5 +34,12 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getStudentById(Long id) {
        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student not found with id: " + id));
        return modelMapper.map(student, StudentDto.class);
+    }
+
+    @Override
+    public StudentDto createNewStudent(AddStudentRequestDto addStudentRequestDto) {
+        Student newStudent = modelMapper.map(addStudentRequestDto, Student.class);
+        Student student = studentRepository.save(newStudent);
+        return modelMapper.map(student, StudentDto.class);
     }
 }
