@@ -4,6 +4,7 @@ import com.cwdlimited.LearningRESTAPIs.dto.AddStudentRequestDto;
 import com.cwdlimited.LearningRESTAPIs.dto.StudentDto;
 import com.cwdlimited.LearningRESTAPIs.service.StudentService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> createNewStudent(@RequestBody AddStudentRequestDto addStudentRequestDto){
+    public ResponseEntity<StudentDto> createNewStudent(@RequestBody @Valid AddStudentRequestDto addStudentRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestDto));
     }
 
